@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#05010f"/>
+      <stop offset="50%" stop-color="#1a0540"/>
+      <stop offset="100%" stop-color="#05010f"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00f0ff" stroke-opacity="0.2" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+  <text x="400" y="225" text-anchor="middle" font-family="monospace" font-size="48" fill="#00f0ff" font-weight="bold">// project</text>
+  <text x="400" y="265" text-anchor="middle" font-family="monospace" font-size="20" fill="#ff2bd6">[ neon engaged ]</text>
+</svg>
