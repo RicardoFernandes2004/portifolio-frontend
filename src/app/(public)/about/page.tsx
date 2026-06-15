@@ -58,7 +58,7 @@ export default async function AboutPage() {
         <p className="font-mono text-xs uppercase tracking-[0.4em] text-neon-cyan terminal-prompt">
           cat /about_me.md
         </p>
-        <GlitchText className="text-4xl md:text-6xl">ABOUT ME</GlitchText>
+        <GlitchText className="text-3xl sm:text-4xl md:text-6xl">ABOUT ME</GlitchText>
         <div className="neon-divider w-32" />
 
         {header ? (
@@ -72,7 +72,7 @@ export default async function AboutPage() {
                   {header.name}
                 </h2>
                 <p className="text-neon-cyan font-mono">{header.jobTitle}</p>
-                <p className="text-fg-dim leading-relaxed whitespace-pre-line">
+                <p className="text-fg-dim leading-relaxed whitespace-pre-line break-words overflow-hidden">
                   {header.summary}
                 </p>
                 <Link href="/download" className="inline-block pt-2">
@@ -84,7 +84,7 @@ export default async function AboutPage() {
             </CyberCard>
 
             <CyberCard variant="magenta">
-              <div className="p-6 space-y-3 font-mono text-sm">
+              <div className="p-4 sm:p-6 space-y-3 font-mono text-sm min-w-0 overflow-hidden">
                 <p className="text-xs uppercase tracking-widest text-neon-cyan">
                   / contact
                 </p>
@@ -110,11 +110,11 @@ export default async function AboutPage() {
       <section className="space-y-8">
         <SectionHeader eyebrow="// 01" title="Skills" />
         {sortedSkills.length > 0 ? (
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
             {sortedSkills.map((s) => (
               <CyberCard key={s.id} variant="cyan" hoverable>
-                <div className="p-5 space-y-2">
-                  <div className="flex items-center justify-between gap-3">
+                <div className="p-3 sm:p-5 space-y-2">
+                  <div className="flex items-center justify-between gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
                     <div className="flex items-center gap-3 min-w-0">
                       {s.icon && (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -124,7 +124,7 @@ export default async function AboutPage() {
                           className="h-6 w-6 object-contain"
                         />
                       )}
-                      <span className="font-display font-semibold truncate">
+                      <span className="font-display font-semibold truncate text-sm sm:text-base">
                         {s.name}
                       </span>
                     </div>
@@ -192,9 +192,9 @@ function ContactRow({
 }) {
   if (!value) return null;
   const inner = (
-    <span className="flex items-center gap-2 text-fg-dim">
-      <span className="text-neon-cyan [&>svg]:h-4 [&>svg]:w-4">{icon}</span>
-      <span className="truncate">{value}</span>
+    <span className="flex items-center gap-2 text-fg-dim min-w-0">
+      <span className="text-neon-cyan [&>svg]:h-4 [&>svg]:w-4 shrink-0">{icon}</span>
+      <span className="truncate text-xs sm:text-sm">{value}</span>
     </span>
   );
   if (href) {

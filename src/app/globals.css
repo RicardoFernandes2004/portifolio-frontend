@@ -30,6 +30,7 @@
     color: rgb(var(--fg));
     font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   body {

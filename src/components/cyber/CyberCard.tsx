@@ -31,7 +31,7 @@ export function CyberCard({
   return (
     <div
       className={cn(
-        "relative isolate p-[1px]",
+        "relative isolate p-[1px] overflow-hidden",
         "before:absolute before:inset-0 before:-z-10 before:cyber-clip before:opacity-60",
         variantBorder[variant],
         hoverable && "transition-all duration-300 hover:before:opacity-100",

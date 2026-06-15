@@ -24,12 +24,12 @@ export function LevelBars({
   const bars = levelToBars(level, max);
   const v = variants[variant];
   return (
-    <div className={cn("flex items-center gap-1.5", className)}>
+    <div className={cn("flex items-center gap-1 sm:gap-1.5 shrink-0", className)}>
       {bars.map((on, i) => (
         <span
           key={i}
           className={cn(
-            "h-2 w-6 cyber-clip-sm transition-all",
+            "h-2 w-4 sm:w-6 cyber-clip-sm transition-all",
             on ? v.on : v.off,
           )}
         />

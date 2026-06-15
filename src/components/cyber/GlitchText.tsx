@@ -11,7 +11,7 @@ export function GlitchText({ children, as: Tag = "h1", className }: GlitchTextPr
     <Tag
       data-text={children}
       className={cn(
-        "relative inline-block font-display font-bold tracking-tight",
+        "relative inline-block font-display font-bold tracking-tight overflow-hidden",
         "text-fg",
         "[text-shadow:_0_0_2px_rgb(var(--neon-cyan)/0.6)]",
         "before:absolute before:inset-0 before:content-[attr(data-text)] before:text-neon-cyan before:opacity-70 before:translate-x-[2px] before:translate-y-[1px] before:[clip-path:polygon(0_0,100%_0,100%_45%,0_45%)] before:animate-glitch before:pointer-events-none",
