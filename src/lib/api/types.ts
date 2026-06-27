@@ -164,8 +164,39 @@ export interface Post {
   category: Category | null;
   publishedAt: string | null;
   isPublished: boolean;
+  commentCount: number;
+  likeCount: number;
+  viewCount: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Comment {
+  id: number;
+  postId: number;
+  parentId: number | null;
+  authorName: string;
+  content: string;
+  status: "PUBLISHED" | "PENDING";
+  replies: Comment[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateCommentDto {
+  authorName: string;
+  content: string;
+  authorEmail?: string | null;
+  parentId?: number | null;
+}
+
+export interface LikeResponse {
+  liked: boolean;
+  likeCount: number;
+}
+
+export interface ViewResponse {
+  viewCount: number;
 }
 
 export interface CreatePostDto {

@@ -1,5 +1,13 @@
 import { http } from "./http";
-import type { CreatePostDto, Post, UpdatePostDto } from "./types";
+import type {
+  Comment,
+  CreateCommentDto,
+  CreatePostDto,
+  LikeResponse,
+  Post,
+  UpdatePostDto,
+  ViewResponse,
+} from "./types";
 
 export const postsApi = {
   list: (categoryId?: number) =>
@@ -26,4 +34,23 @@ export const postsApi = {
     http.post<Post>(`/posts/${id}/publish`).then((r) => r.data),
   unpublish: (id: number) =>
     http.post<Post>(`/posts/${id}/unpublish`).then((r) => r.data),
+
+  listComments: (postId: number) =>
+    http.get<Comment[]>(`/posts/${postId}/comments`).then((r) => r.data),
+  createComment: (postId: number, dto: CreateCommentDto) =>
+    http.post<Comment>(`/posts/${postId}/comments`, dto).then((r) => r.data),
+
+  like: (id: number) =>
+    http.post<LikeResponse>(`/posts/${id}/like`).then((r) => r.data),
+  unlike: (id: number) =>
+    http.delete<LikeResponse>(`/posts/${id}/like`).then((r) => r.data),
+  view: (id: number) =>
+    http.post<ViewResponse>(`/posts/${id}/view`).then((r) => r.data),
+
+  pendingComments: () =>
+    http.get<Comment[]>("/posts/comments/pending").then((r) => r.data),
+  approveComment: (id: number) =>
+    http.post<Comment>(`/posts/comments/${id}/approve`).then((r) => r.data),
+  deleteComment: (id: number) =>
+    http.delete<void>(`/posts/comments/${id}`).then((r) => r.data),
 };

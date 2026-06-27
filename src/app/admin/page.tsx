@@ -2,6 +2,7 @@ import Link from "next/link";
 import { apiGetSafe } from "@/lib/api/server";
 import type {
   Category,
+  Comment,
   Education,
   Experience,
   Language,
@@ -19,26 +20,37 @@ import {
   Sparkles,
   Languages,
   Tags,
+  MessageSquare,
   ArrowRight,
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
-  const [posts, projects, experiences, educations, skills, languages, categories] =
-    await Promise.all([
-      apiGetSafe<Post[]>("/posts/admin", { auth: true }),
-      apiGetSafe<Project[]>("/projects"),
-      apiGetSafe<Experience[]>("/experiences"),
-      apiGetSafe<Education[]>("/educations"),
-      apiGetSafe<Skill[]>("/skills"),
-      apiGetSafe<Language[]>("/languages"),
-      apiGetSafe<Category[]>("/categories"),
-    ]);
+  const [
+    posts,
+    projects,
+    experiences,
+    educations,
+    skills,
+    languages,
+    categories,
+    pendingComments,
+  ] = await Promise.all([
+    apiGetSafe<Post[]>("/posts/admin", { auth: true }),
+    apiGetSafe<Project[]>("/projects"),
+    apiGetSafe<Experience[]>("/experiences"),
+    apiGetSafe<Education[]>("/educations"),
+    apiGetSafe<Skill[]>("/skills"),
+    apiGetSafe<Language[]>("/languages"),
+    apiGetSafe<Category[]>("/categories"),
+    apiGetSafe<Comment[]>("/posts/comments/pending", { auth: true }),
+  ]);
 
   const allPosts = posts ?? [];
   const published = allPosts.filter((p) => p.isPublished).length;
   const drafts = allPosts.length - published;
+  const pending = pendingComments ?? [];
 
   const stats = [
     {
@@ -48,6 +60,14 @@ export default async function AdminDashboard() {
       primary: allPosts.length,
       detail: `${published} pub · ${drafts} draft`,
       variant: "cyan" as const,
+    },
+    {
+      href: "/admin/comments",
+      label: "pending comments",
+      icon: MessageSquare,
+      primary: pending.length,
+      detail: pending.length > 0 ? "aguardando moderação" : "tudo em dia",
+      variant: "magenta" as const,
     },
     {
       href: "/admin/projects",
@@ -137,6 +157,45 @@ export default async function AdminDashboard() {
           );
         })}
       </div>
+
+      {pending.length > 0 && (
+        <section>
+          <CyberCard variant="magenta">
+            <div className="p-6 space-y-3">
+              <div className="flex items-center justify-between gap-3">
+                <p className="font-mono text-xs uppercase tracking-widest text-neon-magenta">
+                  pending comments
+                </p>
+                <Link
+                  href="/admin/comments"
+                  className="font-mono text-[11px] uppercase tracking-widest text-neon-cyan hover:text-neon-magenta transition-colors inline-flex items-center gap-1"
+                >
+                  moderar <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+              <ul className="space-y-2 font-mono text-sm">
+                {pending.slice(0, 5).map((c) => (
+                  <li
+                    key={c.id}
+                    className="flex items-center justify-between gap-3 border-b border-dashed border-border/50 pb-2 last:border-b-0"
+                  >
+                    <Link
+                      href="/admin/comments"
+                      className="truncate hover:text-neon-magenta"
+                    >
+                      <span className="text-neon-cyan">{c.authorName}:</span>{" "}
+                      {c.content}
+                    </Link>
+                    <span className="text-[10px] uppercase tracking-widest text-neon-yellow shrink-0">
+                      post {c.postId}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </CyberCard>
+        </section>
+      )}
 
       <section className="grid gap-4 md:grid-cols-2">
         <CyberCard variant="cyan">

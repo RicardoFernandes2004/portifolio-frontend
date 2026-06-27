@@ -7,6 +7,8 @@ import { GlitchText } from "@/components/cyber/GlitchText";
 import { Chip } from "@/components/cyber/Chip";
 import { NeonButton } from "@/components/cyber/NeonButton";
 import { MarkdownView } from "@/components/blog/MarkdownView";
+import { PostInteractions } from "./PostInteractions";
+import { CommentSection } from "./CommentSection";
 import { formatDate } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
 
@@ -53,6 +55,12 @@ export default async function PostPage({ params }: Params) {
           {post.title}
         </GlitchText>
         <p className="text-lg text-fg-dim">{post.summary}</p>
+        <PostInteractions
+          postId={post.id}
+          initialLikeCount={post.likeCount}
+          initialViewCount={post.viewCount}
+          initialCommentCount={post.commentCount}
+        />
         <div className="neon-divider w-32" />
       </header>
 
@@ -64,6 +72,10 @@ export default async function PostPage({ params }: Params) {
       )}
 
       <MarkdownView source={post.content} />
+
+      <div className="pt-8 border-t border-border/60">
+        <CommentSection postId={post.id} />
+      </div>
 
       <div className="pt-8 border-t border-border/60">
         <Link href="/blog">

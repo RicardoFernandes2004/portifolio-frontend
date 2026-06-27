@@ -3,7 +3,7 @@ import type { Post } from "@/lib/api/types";
 import { CyberCard } from "@/components/cyber/CyberCard";
 import { Chip } from "@/components/cyber/Chip";
 import { formatDate, truncate } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Eye, Heart, MessageSquare } from "lucide-react";
 
 export function PostCard({ post }: { post: Post }) {
   const cover = post.images?.[0];
@@ -37,6 +37,20 @@ export function PostCard({ post }: { post: Post }) {
             <p className="font-body text-sm text-fg-dim">
               {truncate(post.summary, 160)}
             </p>
+            <div className="flex items-center gap-4 font-mono text-[11px] text-fg-muted pt-1">
+              <span className="inline-flex items-center gap-1">
+                <Heart className="h-3.5 w-3.5" />
+                {post.likeCount}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <MessageSquare className="h-3.5 w-3.5" />
+                {post.commentCount}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Eye className="h-3.5 w-3.5" />
+                {post.viewCount}
+              </span>
+            </div>
             <div className="flex items-center gap-1 font-mono text-xs text-neon-cyan opacity-0 group-hover:opacity-100 transition-opacity pt-1">
               read more <ArrowUpRight className="h-3.5 w-3.5" />
             </div>

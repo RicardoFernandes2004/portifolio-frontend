@@ -15,6 +15,7 @@ import {
   Languages,
   Tags,
   IdCard,
+  MessageSquare,
   LogOut,
   ExternalLink,
 } from "lucide-react";
@@ -24,6 +25,7 @@ import { clearCachedToken } from "@/lib/api/http";
 const NAV = [
   { href: "/admin", label: "dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/posts", label: "posts", icon: FileText },
+  { href: "/admin/comments", label: "comments", icon: MessageSquare },
   { href: "/admin/projects", label: "projects", icon: FolderGit2 },
   { href: "/admin/experiences", label: "experiences", icon: Briefcase },
   { href: "/admin/educations", label: "educations", icon: GraduationCap },
