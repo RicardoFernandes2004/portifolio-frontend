@@ -21,8 +21,7 @@ export default async function DownloadPage() {
         <GlitchText className="text-4xl md:text-5xl">DOWNLOAD CV</GlitchText>
         <p className="text-fg-dim max-w-2xl">
           O PDF é gerado dinamicamente no backend a partir dos dados atuais
-          (header + experiências + formações + skills + idiomas + projetos). Nada
-          de cache: clique e leve sempre a versão mais recente.
+          (header + experiências + formações + skills + idiomas + projetos). Clique e leve sempre a versão mais recente.
         </p>
         <div className="neon-divider w-32" />
       </div>
