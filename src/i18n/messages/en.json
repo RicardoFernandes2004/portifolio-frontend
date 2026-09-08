@@ -103,7 +103,18 @@
     "metaTitle": "Login",
     "subtitle": "authenticate to enter the control panel",
     "invalidCredentials": "Invalid credentials",
-    "networkError": "Network error"
+    "networkError": "Network error",
+    "forgotPassword": "forgot password",
+    "twoFactorTitle": "TWO-FACTOR VERIFICATION",
+    "twoFactorSubtitle": "enter the code from your authenticator app",
+    "codeLabel": "code",
+    "codePlaceholder": "000000",
+    "backupCodePlaceholder": "xxxx-xxxx-xxxx",
+    "useBackupCode": "use a backup code",
+    "useAuthenticator": "use the app code",
+    "verify": "verify",
+    "backToPassword": "back",
+    "invalidCode": "Invalid code"
   },
   "notFound": {
     "message": "signal lost. resource not found in this sector.",
@@ -121,5 +132,28 @@
   "timeline": {
     "empty": "no records.",
     "present": "present"
+  },
+  "forgotPassword": {
+    "metaTitle": "Recover password",
+    "title": "RECOVER ACCESS",
+    "subtitle": "we will send a reset link to the registered email",
+    "emailLabel": "email",
+    "submit": "send link",
+    "sent": "If that email is registered, the reset link is on its way. The link is valid for 30 minutes.",
+    "backToLogin": "back to login"
+  },
+  "resetPassword": {
+    "metaTitle": "Reset password",
+    "title": "RESET PASSWORD",
+    "subtitle": "choose a new password for the panel",
+    "newPasswordLabel": "new password",
+    "confirmLabel": "confirm password",
+    "codeLabel": "verification code",
+    "codeHint": "from your authenticator app, or a backup code. Leave empty if 2FA is off.",
+    "submit": "reset",
+    "success": "Password reset. Sign in with the new one.",
+    "goToLogin": "go to login",
+    "mismatch": "Passwords do not match",
+    "tooShort": "Minimum of 12 characters"
   }
 }

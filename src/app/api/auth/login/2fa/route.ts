@@ -2,11 +2,7 @@ import { NextResponse } from "next/server";
 import { SERVER_API_URL } from "@/lib/api/config";
 import { respondWithSession, type BackendSession } from "@/lib/session-cookie";
 
-interface TwoFactorChallenge {
-  twoFactorRequired: true;
-  challengeToken: string;
-}
-
+/** Segundo passo do login: só aqui a sessão é criada. */
 export async function POST(req: Request) {
   let body: unknown;
   try {
@@ -15,7 +11,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "JSON inválido" }, { status: 400 });
   }
 
-  const res = await fetch(`${SERVER_API_URL}/auth/login`, {
+  const res = await fetch(`${SERVER_API_URL}/auth/login/2fa`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
@@ -25,20 +21,10 @@ export async function POST(req: Request) {
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
     return NextResponse.json(
-      { message: data?.message ?? "Falha no login" },
+      { message: data?.message ?? "Código inválido" },
       { status: res.status },
     );
   }
 
-  const data = (await res.json()) as BackendSession | TwoFactorChallenge;
-
-  // Primeiro fator apenas: repassa o challenge SEM criar sessão.
-  if ("twoFactorRequired" in data) {
-    return NextResponse.json({
-      twoFactorRequired: true,
-      challengeToken: data.challengeToken,
-    });
-  }
-
-  return respondWithSession(data);
+  return respondWithSession((await res.json()) as BackendSession);
 }

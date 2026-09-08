@@ -103,7 +103,18 @@
     "metaTitle": "Login",
     "subtitle": "autentique-se para entrar no painel",
     "invalidCredentials": "Credenciais inválidas",
-    "networkError": "Erro de rede"
+    "networkError": "Erro de rede",
+    "forgotPassword": "esqueci a senha",
+    "twoFactorTitle": "VERIFICAÇÃO EM DUAS ETAPAS",
+    "twoFactorSubtitle": "digite o código do seu app autenticador",
+    "codeLabel": "código",
+    "codePlaceholder": "000000",
+    "backupCodePlaceholder": "xxxx-xxxx-xxxx",
+    "useBackupCode": "usar código de backup",
+    "useAuthenticator": "usar código do app",
+    "verify": "verificar",
+    "backToPassword": "voltar",
+    "invalidCode": "Código inválido"
   },
   "notFound": {
     "message": "signal lost. recurso não encontrado neste setor.",
@@ -121,5 +132,28 @@
   "timeline": {
     "empty": "sem registros.",
     "present": "presente"
+  },
+  "forgotPassword": {
+    "metaTitle": "Recuperar senha",
+    "title": "RECUPERAR ACESSO",
+    "subtitle": "mandamos um link de redefinição para o email cadastrado",
+    "emailLabel": "email",
+    "submit": "enviar link",
+    "sent": "Se esse email estiver cadastrado, o link de redefinição chegou nele. O link vale por 30 minutos.",
+    "backToLogin": "voltar ao login"
+  },
+  "resetPassword": {
+    "metaTitle": "Redefinir senha",
+    "title": "REDEFINIR SENHA",
+    "subtitle": "escolha uma senha nova para o painel",
+    "newPasswordLabel": "nova senha",
+    "confirmLabel": "confirmar senha",
+    "codeLabel": "código de verificação",
+    "codeHint": "do app autenticador, ou um código de backup. Deixe vazio se o 2FA não estiver ativo.",
+    "submit": "redefinir",
+    "success": "Senha redefinida. Entre com a senha nova.",
+    "goToLogin": "ir para o login",
+    "mismatch": "As senhas não conferem",
+    "tooShort": "Mínimo de 12 caracteres"
   }
 }

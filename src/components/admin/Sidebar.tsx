@@ -13,6 +13,7 @@ import {
   Tags,
   IdCard,
   MessageSquare,
+  ShieldCheck,
   LogOut,
   Terminal,
   ExternalLink,
@@ -32,6 +33,7 @@ const NAV = [
   { href: "/admin/languages", label: "languages", icon: Languages },
   { href: "/admin/categories", label: "categories", icon: Tags },
   { href: "/admin/resume", label: "resume header", icon: IdCard },
+  { href: "/admin/security", label: "security", icon: ShieldCheck },
 ];
 
 export function Sidebar() {
