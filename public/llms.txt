@@ -1,0 +1,18 @@
+# RC.dev — Ricardo Fernandes
+
+> Software engineer. Portfolio, work history and a technical blog, in
+> Portuguese (default) and English (under /en).
+
+Stack: TypeScript, Next.js (App Router), NestJS, Prisma, PostgreSQL.
+
+## Pages
+- /en — home: featured projects and recent posts
+- /en/projects — every project, with stack and source links
+- /en/experiences — work history, newest first
+- /en/about — bio, skills, languages, education
+- /en/blog — technical notes and architecture decisions
+- /en/download — resume as PDF, generated from live data
+
+The Portuguese version of every page lives at the same path without the
+/en prefix. Structured data (schema.org Person and BlogPosting) is embedded
+in each page.

@@ -1,12 +1,21 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
 import type { Project } from "@/lib/api/types";
 import { CyberCard } from "@/components/cyber/CyberCard";
 import { Chip } from "@/components/cyber/Chip";
 import { ArrowUpRight, Github } from "lucide-react";
-import { truncate } from "@/lib/utils";
+import { tr, truncate } from "@/lib/utils";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({
+  project,
+  locale,
+}: {
+  project: Project;
+  locale: Locale;
+}) {
   const cover = project.images?.[0];
+  const title = tr(locale, project.title, project.titleEn);
+  const description = tr(locale, project.description, project.descriptionEn);
   return (
     <Link href={`/projects/${project.id}`} className="group block">
       <CyberCard variant="cyan" hoverable className="h-full">
@@ -16,7 +25,7 @@ export function ProjectCard({ project }: { project: Project }) {
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={cover}
-                alt={project.title}
+                alt={title}
                 className="h-full w-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
               />
             ) : (
@@ -38,10 +47,10 @@ export function ProjectCard({ project }: { project: Project }) {
 
           <div className="flex-1 p-5 space-y-3">
             <h3 className="font-display text-lg font-bold text-fg group-hover:text-neon-cyan transition-colors">
-              {project.title}
+              {title}
             </h3>
             <p className="font-body text-sm text-fg-dim">
-              {truncate(project.description, 140)}
+              {truncate(description, 140)}
             </p>
             {project.technologies?.length > 0 && (
               <div className="flex flex-wrap gap-1.5 pt-1">

@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "home": "// home",
+    "projects": "// projects",
+    "experiences": "// experiences",
+    "blog": "// blog",
+    "about": "// about",
+    "resume": "// resume.pdf",
+    "menu": "menu",
+    "switchTo": "Ver em inglês"
+  },
+  "site": {
+    "title": "RC.dev — Portfólio",
+    "description": "Portfólio de engenheiro de software: projetos, experiências e blog técnico."
+  },
+  "home": {
+    "heroFallbackTitle": "SOFTWARE ENGINEER",
+    "heroFallbackSummary": "Engenheiro de software construindo experiências digitais futuristas. APIs robustas, interfaces que respiram neon e código que dorme em paz.",
+    "exploreWork": "ver projetos",
+    "downloadCv": "baixar CV",
+    "readBlog": "ler o blog",
+    "featuredTitle": "Projetos em destaque",
+    "featuredDescription": "Recortes do que construí ultimamente — full code, full neon.",
+    "seeAll": "ver todos",
+    "emptyProjects": "Nenhum projeto cadastrado ainda.",
+    "blogTitle": "Do blog",
+    "blogDescription": "Notas técnicas, decisões de arquitetura e tudo que acho que vale registro.",
+    "allPosts": "todos os posts",
+    "emptyPosts": "Nenhum post publicado ainda.",
+    "ctaHeadline": "Vamos construir algo que <glow>brilhe</glow>?",
+    "ctaBody": "Disponível para projetos freelance, consultoria e oportunidades full-time. Mande um sinal.",
+    "ctaButton": "contato"
+  },
+  "projects": {
+    "metaTitle": "Projetos",
+    "metaDescription": "Projetos de software que construí: web, APIs e ferramentas, com stack e código-fonte.",
+    "count": "{count, plural, =0 {Nenhum registro} =1 {# registro} other {# registros}} no repositório. Clique em qualquer card para detalhes técnicos completos.",
+    "empty": "nenhum projeto cadastrado ainda."
+  },
+  "projectDetail": {
+    "back": "voltar",
+    "collaborators": "colaboradores",
+    "metaDescription": "Detalhes técnicos, stack e código-fonte do projeto {title}."
+  },
+  "experiences": {
+    "metaTitle": "Experiências",
+    "metaDescription": "Histórico profissional: cargos, empresas e o que entreguei em cada um.",
+    "description": "Histórico profissional do mais recente para o mais antigo. Cada bloco é um capítulo no log."
+  },
+  "about": {
+    "metaTitle": "Sobre",
+    "metaDescription": "Quem sou, com o que trabalho, skills, idiomas e formação.",
+    "identity": "/ identidade",
+    "contact": "/ contato",
+    "downloadCv": "baixar CV",
+    "headerUnavailable": "Header do currículo não disponível.",
+    "skills": "Skills",
+    "languages": "Idiomas",
+    "educations": "Formação",
+    "empty": "sem registros."
+  },
+  "blog": {
+    "metaTitle": "Blog",
+    "metaDescription": "Anotações técnicas, decisões de arquitetura e observações de campo.",
+    "description": "Anotações técnicas, decisões de arquitetura e observações de campo.",
+    "filter": "filtro:",
+    "all": "tudo",
+    "empty": "nenhum post encontrado."
+  },
+  "post": {
+    "back": "voltar",
+    "backToBlog": "voltar para o blog",
+    "notFound": "Post não encontrado"
+  },
+  "comments": {
+    "heading": "Comentários",
+    "loading": "carregando...",
+    "loadError": "erro ao carregar comentários.",
+    "empty": "seja o primeiro a comentar.",
+    "namePlaceholder": "seu nome",
+    "commentPlaceholder": "escreva um comentário...",
+    "replyPlaceholder": "escreva sua resposta...",
+    "submit": "comentar",
+    "submitReply": "responder",
+    "reply": "responder",
+    "cancel": "cancelar",
+    "pending": "Seu comentário foi enviado e está aguardando moderação antes de aparecer.",
+    "published": "Comentário publicado!",
+    "tooFast": "Você está comentando rápido demais. Aguarde um instante e tente novamente."
+  },
+  "download": {
+    "metaTitle": "Download do CV",
+    "metaDescription": "Baixe o currículo em PDF, gerado a partir dos dados sempre atuais.",
+    "description": "O PDF é gerado dinamicamente no backend a partir dos dados atuais (header + experiências + formações + skills + idiomas + projetos). Clique e leve sempre a versão mais recente.",
+    "fallbackName": "Currículo",
+    "tip": "// dica: o arquivo será salvo como",
+    "button": "baixar resume.pdf",
+    "done": "transferido",
+    "failed": "Falha ({status})",
+    "unknownError": "Erro desconhecido"
+  },
+  "login": {
+    "metaTitle": "Login",
+    "subtitle": "autentique-se para entrar no painel",
+    "invalidCredentials": "Credenciais inválidas",
+    "networkError": "Erro de rede"
+  },
+  "notFound": {
+    "message": "signal lost. recurso não encontrado neste setor.",
+    "returnHome": "voltar ao início",
+    "browseProjects": "ver projetos"
+  },
+  "error": {
+    "retry": "tentar de novo",
+    "returnHome": "voltar ao início"
+  },
+  "postCard": {
+    "draft": "rascunho",
+    "readMore": "ler mais"
+  },
+  "timeline": {
+    "empty": "sem registros.",
+    "present": "presente"
+  }
+}

@@ -7,12 +7,17 @@ interface FetchOptions extends RequestInit {
   json?: unknown;
 }
 
+/** Janela de cache das páginas públicas, em segundos. */
+export const PUBLIC_REVALIDATE = 300;
+
 /**
  * fetch helper para Server Components / Route Handlers.
  * - prefixa SERVER_API_URL
  * - lê o JWT do cookie httpOnly e injeta Authorization quando auth=true
  * - serializa body via `json`
- * - sem cache por padrão (no-store) para refletir mudanças do admin
+ * - público: cache de PUBLIC_REVALIDATE s, para o crawler não acordar a VM do
+ *   backend a cada hit (o admin leva até esse tempo para aparecer no site)
+ * - autenticado: no-store, o admin sempre vê o estado real
  */
 export async function apiFetch(path: string, opts: FetchOptions = {}): Promise<Response> {
   const { auth, json, headers, ...rest } = opts;
@@ -28,7 +33,11 @@ export async function apiFetch(path: string, opts: FetchOptions = {}): Promise<R
     ...rest,
     headers: finalHeaders,
     body: json !== undefined ? JSON.stringify(json) : rest.body,
-    cache: rest.cache ?? "no-store",
+    ...(rest.cache
+      ? { cache: rest.cache }
+      : auth
+        ? { cache: "no-store" as const }
+        : { next: { revalidate: PUBLIC_REVALIDATE } }),
   });
 }
 
