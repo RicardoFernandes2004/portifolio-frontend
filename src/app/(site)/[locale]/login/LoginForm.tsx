@@ -6,27 +6,39 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Link } from "@/i18n/routing";
 import { NeonButton } from "@/components/cyber/NeonButton";
 import { CyberCard } from "@/components/cyber/CyberCard";
-import { Lock, Mail, AlertTriangle } from "lucide-react";
+import { Lock, Mail, AlertTriangle, ShieldCheck, ArrowLeft } from "lucide-react";
 import { setCachedToken } from "@/lib/api/http";
 
-const schema = z.object({
+const credentialsSchema = z.object({
   identifier: z.string().min(1, "obrigatório"),
   password: z.string().min(1, "obrigatório"),
 });
+type CredentialsData = z.infer<typeof credentialsSchema>;
 
-type FormData = z.infer<typeof schema>;
+const inputClass =
+  "w-full bg-bg-deep/80 border border-border focus:border-neon-cyan focus:shadow-neon-cyan outline-none pl-10 pr-3 py-2.5 font-mono text-sm cyber-clip-sm transition-all";
 
 export function LoginForm({ redirectTo }: { redirectTo?: string }) {
   const t = useTranslations("login");
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  // Presença do challenge é o que separa os dois passos.
+  const [challengeToken, setChallengeToken] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<CredentialsData>({ resolver: zodResolver(credentialsSchema) });
+
+  function enterAdmin() {
+    setCachedToken(null);
+    router.replace(redirectTo || "/admin");
+    router.refresh();
+  }
 
   const onSubmit = handleSubmit(async ({ identifier, password }) => {
     setError(null);
@@ -41,18 +53,33 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(body),
       });
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
         setError(data?.message ?? t("invalidCredentials"));
         return;
       }
-      setCachedToken(null);
-      router.replace(redirectTo || "/admin");
-      router.refresh();
+      if (data?.twoFactorRequired) {
+        setChallengeToken(data.challengeToken);
+        return;
+      }
+      enterAdmin();
     } catch (err) {
       setError(err instanceof Error ? err.message : t("networkError"));
     }
   });
+
+  if (challengeToken) {
+    return (
+      <TwoFactorStep
+        challengeToken={challengeToken}
+        onDone={enterAdmin}
+        onBack={() => {
+          setChallengeToken(null);
+          setError(null);
+        }}
+      />
+    );
+  }
 
   return (
     <CyberCard variant="magenta" className="p-[2px]">
@@ -69,7 +96,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
               autoFocus
               placeholder="admin@portifolio.dev"
               {...register("identifier")}
-              className="w-full bg-bg-deep/80 border border-border focus:border-neon-cyan focus:shadow-neon-cyan outline-none pl-10 pr-3 py-2.5 font-mono text-sm cyber-clip-sm transition-all"
+              className={inputClass}
             />
           </div>
           {errors.identifier && (
@@ -90,7 +117,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
               autoComplete="current-password"
               placeholder="••••••••"
               {...register("password")}
-              className="w-full bg-bg-deep/80 border border-border focus:border-neon-cyan focus:shadow-neon-cyan outline-none pl-10 pr-3 py-2.5 font-mono text-sm cyber-clip-sm transition-all"
+              className={inputClass}
             />
           </div>
           {errors.password && (
@@ -100,12 +127,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
           )}
         </div>
 
-        {error && (
-          <div className="flex items-start gap-2 border border-neon-red/40 bg-neon-red/10 px-3 py-2 text-xs font-mono text-neon-red cyber-clip-sm">
-            <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
-            <span>{error}</span>
-          </div>
-        )}
+        {error && <ErrorBox message={error} />}
 
         <NeonButton
           type="submit"
@@ -117,10 +139,132 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
           authenticate &rarr;
         </NeonButton>
 
-        <p className="font-mono text-[11px] uppercase tracking-widest text-fg-muted text-center pt-2">
+        <div className="text-center">
+          <Link
+            href="/forgot-password"
+            className="font-mono text-[11px] uppercase tracking-widest text-fg-muted hover:text-neon-cyan transition-colors"
+          >
+            {t("forgotPassword")}
+          </Link>
+        </div>
+
+        <p className="font-mono text-[11px] uppercase tracking-widest text-fg-muted text-center">
           // unauthorized access will be logged
         </p>
       </form>
     </CyberCard>
+  );
+}
+
+function TwoFactorStep({
+  challengeToken,
+  onDone,
+  onBack,
+}: {
+  challengeToken: string;
+  onDone: () => void;
+  onBack: () => void;
+}) {
+  const t = useTranslations("login");
+  const [code, setCode] = useState("");
+  const [useBackup, setUseBackup] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!code.trim()) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/auth/login/2fa", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ challengeToken, code: code.trim() }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data?.message ?? t("invalidCode"));
+        return;
+      }
+      onDone();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t("networkError"));
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <CyberCard variant="cyan" className="p-[2px]">
+      <form onSubmit={submit} className="p-6 space-y-5">
+        <div className="space-y-1 text-center">
+          <ShieldCheck className="mx-auto h-8 w-8 text-neon-cyan" />
+          <h2 className="font-display text-lg font-bold">{t("twoFactorTitle")}</h2>
+          <p className="font-mono text-[11px] text-fg-muted">
+            {t("twoFactorSubtitle")}
+          </p>
+        </div>
+
+        <div className="space-y-1.5">
+          <label className="font-mono text-xs uppercase tracking-widest text-neon-cyan">
+            {t("codeLabel")}
+          </label>
+          <input
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            autoFocus
+            autoComplete="one-time-code"
+            inputMode={useBackup ? "text" : "numeric"}
+            placeholder={
+              useBackup ? t("backupCodePlaceholder") : t("codePlaceholder")
+            }
+            className="w-full bg-bg-deep/80 border border-border focus:border-neon-cyan focus:shadow-neon-cyan outline-none px-3 py-2.5 font-mono text-center text-lg tracking-[0.3em] cyber-clip-sm transition-all"
+          />
+        </div>
+
+        {error && <ErrorBox message={error} />}
+
+        <NeonButton
+          type="submit"
+          variant="cyan"
+          size="lg"
+          className="w-full"
+          loading={submitting}
+        >
+          {t("verify")}
+        </NeonButton>
+
+        <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-1 text-fg-muted hover:text-neon-magenta transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" />
+            {t("backToPassword")}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setUseBackup((v) => !v);
+              setCode("");
+            }}
+            className="text-fg-muted hover:text-neon-cyan transition-colors"
+          >
+            {useBackup ? t("useAuthenticator") : t("useBackupCode")}
+          </button>
+        </div>
+      </form>
+    </CyberCard>
+  );
+}
+
+function ErrorBox({ message }: { message: string }) {
+  return (
+    <div className="flex items-start gap-2 border border-neon-red/40 bg-neon-red/10 px-3 py-2 text-xs font-mono text-neon-red cyber-clip-sm">
+      <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
+      <span>{message}</span>
+    </div>
   );
 }

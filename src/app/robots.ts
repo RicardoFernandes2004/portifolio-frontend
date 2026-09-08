@@ -7,7 +7,16 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       // Painel e porta de entrada dele não são conteúdo público.
-      disallow: ["/admin", "/login", "/en/login", "/api"],
+      disallow: [
+        "/admin",
+        "/login",
+        "/en/login",
+        "/forgot-password",
+        "/en/forgot-password",
+        "/reset-password",
+        "/en/reset-password",
+        "/api",
+      ],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
