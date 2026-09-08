@@ -1,5 +1,7 @@
+import { useTranslations } from "next-intl";
 import { CyberCard } from "@/components/cyber/CyberCard";
 import { Chip } from "@/components/cyber/Chip";
+import type { Locale } from "@/i18n/routing";
 import { formatDateRange } from "@/lib/utils";
 
 export interface TimelineItem {
@@ -12,13 +14,22 @@ export interface TimelineItem {
   current?: boolean;
 }
 
-export function Timeline({ items, accent = "cyan" }: { items: TimelineItem[]; accent?: "cyan" | "magenta" }) {
+export function Timeline({
+  items,
+  locale,
+  accent = "cyan",
+}: {
+  items: TimelineItem[];
+  locale: Locale;
+  accent?: "cyan" | "magenta";
+}) {
+  const t = useTranslations("timeline");
   if (items.length === 0) {
     return (
       <CyberCard variant="purple">
         <div className="p-10 text-center">
           <p className="font-mono text-sm text-fg-muted terminal-prompt">
-            sem registros.
+            {t("empty")}
           </p>
         </div>
       </CyberCard>
@@ -56,7 +67,7 @@ export function Timeline({ items, accent = "cyan" }: { items: TimelineItem[]; ac
                   </p>
                 </div>
                 <Chip variant={item.endDate ? "cyan" : "green"}>
-                  {formatDateRange(item.startDate, item.endDate)}
+                  {formatDateRange(item.startDate, item.endDate, locale, t("present"))}
                 </Chip>
               </div>
               {item.description && (

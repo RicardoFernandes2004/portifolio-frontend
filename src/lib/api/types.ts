@@ -22,7 +22,9 @@ export interface Experience {
   id: number;
   company: string;
   position: string;
+  positionEn?: string | null;
   description: string;
+  descriptionEn?: string | null;
   startDate: string;
   endDate: string | null;
   createdAt: string;
@@ -32,7 +34,9 @@ export interface Experience {
 export interface CreateExperienceDto {
   company: string;
   position: string;
+  positionEn?: string | null;
   description: string;
+  descriptionEn?: string | null;
   startDate: string;
   endDate?: string | null;
 }
@@ -42,7 +46,9 @@ export interface Education {
   id: number;
   school: string;
   degree: string;
+  degreeEn?: string | null;
   fieldOfStudy: string;
+  fieldOfStudyEn?: string | null;
   startDate: string;
   endDate: string | null;
   createdAt: string;
@@ -52,7 +58,9 @@ export interface Education {
 export interface CreateEducationDto {
   school: string;
   degree: string;
+  degreeEn?: string | null;
   fieldOfStudy: string;
+  fieldOfStudyEn?: string | null;
   startDate: string;
   endDate?: string | null;
 }
@@ -63,6 +71,7 @@ export interface Skill {
   name: string;
   level: number;
   description: string | null;
+  descriptionEn?: string | null;
   icon: string | null;
   createdAt: string;
   updatedAt: string;
@@ -72,6 +81,7 @@ export interface CreateSkillDto {
   name: string;
   level: number;
   description?: string | null;
+  descriptionEn?: string | null;
   icon?: string | null;
 }
 export type UpdateSkillDto = Partial<CreateSkillDto>;
@@ -79,6 +89,7 @@ export type UpdateSkillDto = Partial<CreateSkillDto>;
 export interface Language {
   id: number;
   name: string;
+  nameEn?: string | null;
   level: number;
   createdAt: string;
   updatedAt: string;
@@ -86,6 +97,7 @@ export interface Language {
 
 export interface CreateLanguageDto {
   name: string;
+  nameEn?: string | null;
   level: number;
 }
 export type UpdateLanguageDto = Partial<CreateLanguageDto>;
@@ -93,7 +105,9 @@ export type UpdateLanguageDto = Partial<CreateLanguageDto>;
 export interface Project {
   id: number;
   title: string;
+  titleEn?: string | null;
   description: string;
+  descriptionEn?: string | null;
   images: string[];
   technologies: string[];
   link: string | null;
@@ -109,7 +123,9 @@ export interface Project {
 
 export interface CreateProjectDto {
   title: string;
+  titleEn?: string | null;
   description: string;
+  descriptionEn?: string | null;
   images?: string[];
   technologies?: string[];
   link?: string | null;
@@ -126,7 +142,9 @@ export interface ResumeHeader {
   id: number;
   name: string;
   jobTitle: string;
+  jobTitleEn?: string | null;
   summary: string;
+  summaryEn?: string | null;
   location: string;
   email: string;
   phone: string;
@@ -144,12 +162,14 @@ export type UpdateResumeHeaderDto = Partial<
 export interface Category {
   id: number;
   name: string;
+  nameEn?: string | null;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface CreateCategoryDto {
   name: string;
+  nameEn?: string | null;
 }
 export type UpdateCategoryDto = Partial<CreateCategoryDto>;
 
@@ -157,8 +177,11 @@ export interface Post {
   id: number;
   slug: string;
   title: string;
+  titleEn?: string | null;
   summary: string;
+  summaryEn?: string | null;
   content: string;
+  contentEn?: string | null;
   images: string[];
   categoryId: number;
   category: Category | null;
@@ -201,8 +224,11 @@ export interface ViewResponse {
 
 export interface CreatePostDto {
   title: string;
+  titleEn?: string | null;
   summary: string;
+  summaryEn?: string | null;
   content: string;
+  contentEn?: string | null;
   categoryId: number;
   slug?: string;
   images?: string[];

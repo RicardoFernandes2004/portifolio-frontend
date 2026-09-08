@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "home": "// home",
+    "projects": "// projects",
+    "experiences": "// experiences",
+    "blog": "// blog",
+    "about": "// about",
+    "resume": "// resume.pdf",
+    "menu": "menu",
+    "switchTo": "View in Portuguese"
+  },
+  "site": {
+    "title": "RC.dev — Portfolio",
+    "description": "Software engineer portfolio: projects, work history and a technical blog."
+  },
+  "home": {
+    "heroFallbackTitle": "SOFTWARE ENGINEER",
+    "heroFallbackSummary": "Software engineer building fast, reliable products — solid APIs, interfaces that run on neon, and code that sleeps through the night.",
+    "exploreWork": "explore work",
+    "downloadCv": "download CV",
+    "readBlog": "read blog",
+    "featuredTitle": "Featured projects",
+    "featuredDescription": "A slice of what I have been building lately — full code, full neon.",
+    "seeAll": "see all",
+    "emptyProjects": "No projects yet.",
+    "blogTitle": "From the blog",
+    "blogDescription": "Technical notes, architecture decisions and anything worth writing down.",
+    "allPosts": "all posts",
+    "emptyPosts": "No posts published yet.",
+    "ctaHeadline": "Let's build something that <glow>glows</glow>?",
+    "ctaBody": "Available for freelance projects, consulting and full-time roles. Send a signal.",
+    "ctaButton": "get in touch"
+  },
+  "projects": {
+    "metaTitle": "Projects",
+    "metaDescription": "Software I have built: web apps, APIs and tools, with the stack and source for each.",
+    "count": "{count, plural, =0 {No entries} =1 {# entry} other {# entries}} in the repository. Open any card for the full technical breakdown.",
+    "empty": "no projects yet."
+  },
+  "projectDetail": {
+    "back": "back",
+    "collaborators": "collaborators",
+    "metaDescription": "Technical breakdown, stack and source code for {title}."
+  },
+  "experiences": {
+    "metaTitle": "Experience",
+    "metaDescription": "Work history: roles, companies and what I shipped at each one.",
+    "description": "Work history, newest first. Every block is a chapter in the log."
+  },
+  "about": {
+    "metaTitle": "About",
+    "metaDescription": "Who I am, what I work on, plus skills, languages and education.",
+    "identity": "/ identity",
+    "contact": "/ contact",
+    "downloadCv": "download CV",
+    "headerUnavailable": "Resume header unavailable.",
+    "skills": "Skills",
+    "languages": "Languages",
+    "educations": "Education",
+    "empty": "no records."
+  },
+  "blog": {
+    "metaTitle": "Blog",
+    "metaDescription": "Technical notes, architecture decisions and field observations.",
+    "description": "Technical notes, architecture decisions and field observations.",
+    "filter": "filter:",
+    "all": "all",
+    "empty": "no posts found."
+  },
+  "post": {
+    "back": "back",
+    "backToBlog": "back to the blog",
+    "notFound": "Post not found"
+  },
+  "comments": {
+    "heading": "Comments",
+    "loading": "loading...",
+    "loadError": "failed to load comments.",
+    "empty": "be the first to comment.",
+    "namePlaceholder": "your name",
+    "commentPlaceholder": "write a comment...",
+    "replyPlaceholder": "write your reply...",
+    "submit": "comment",
+    "submitReply": "reply",
+    "reply": "reply",
+    "cancel": "cancel",
+    "pending": "Your comment was sent and is waiting for moderation before it shows up.",
+    "published": "Comment published!",
+    "tooFast": "You are commenting too fast. Wait a moment and try again."
+  },
+  "download": {
+    "metaTitle": "Download CV",
+    "metaDescription": "Download the resume as a PDF, generated from always-current data.",
+    "description": "The PDF is generated on the backend from current data (header + experience + education + skills + languages + projects). Click and you always get the latest version.",
+    "fallbackName": "Resume",
+    "tip": "// tip: the file will be saved as",
+    "button": "download resume.pdf",
+    "done": "transferred",
+    "failed": "Failed ({status})",
+    "unknownError": "Unknown error"
+  },
+  "login": {
+    "metaTitle": "Login",
+    "subtitle": "authenticate to enter the control panel",
+    "invalidCredentials": "Invalid credentials",
+    "networkError": "Network error"
+  },
+  "notFound": {
+    "message": "signal lost. resource not found in this sector.",
+    "returnHome": "return home",
+    "browseProjects": "browse projects"
+  },
+  "error": {
+    "retry": "retry",
+    "returnHome": "return home"
+  },
+  "postCard": {
+    "draft": "draft",
+    "readMore": "read more"
+  },
+  "timeline": {
+    "empty": "no records.",
+    "present": "present"
+  }
+}
