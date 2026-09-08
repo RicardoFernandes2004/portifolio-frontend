@@ -3,9 +3,8 @@ import { API_URL } from "./config";
 
 /**
  * Cliente axios usado APENAS no browser (Client Components).
- * O JWT vive em cookie httpOnly, então o front pega o token via /api/auth/me.
- * Para reduzir round-trip, no client usamos um token "público" (não httpOnly)
- * espelhado em pf_token_pub para o axios anexar Authorization automaticamente.
+ * O JWT vive em cookie httpOnly, então o front pega o token via /api/auth/me
+ * uma vez e mantém em memória para o axios anexar o Authorization.
  */
 
 let cachedToken: string | null = null;
@@ -51,13 +50,22 @@ http.interceptors.request.use(async (config) => {
   return config;
 });
 
+let signingOut = false;
+
 http.interceptors.response.use(
   (r) => r,
-  (err: AxiosError) => {
+  async (err: AxiosError) => {
     if (err.response?.status === 401 && typeof window !== "undefined") {
       clearCachedToken();
       const path = window.location.pathname;
-      if (path.startsWith("/admin")) {
+      if (path.startsWith("/admin") && !signingOut) {
+        signingOut = true;
+        // O cookie precisa morrer antes do redirect. O backend revoga o token
+        // sem avisar o browser (outro login rotaciona a sessão, o reset de
+        // senha derruba a atual), e aí o cookie continua válido pelo relógio:
+        // /login se acha logado, devolve para /admin, que toma 401 de novo —
+        // loop infinito. Sem sessão, /login mostra o formulário.
+        await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
         window.location.href = `/login?from=${encodeURIComponent(path)}`;
       }
     }
