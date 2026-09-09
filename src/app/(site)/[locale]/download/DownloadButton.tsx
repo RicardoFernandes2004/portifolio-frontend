@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { NeonButton } from "@/components/cyber/NeonButton";
 import { CheckCircle2, Download, AlertTriangle } from "lucide-react";
 
@@ -9,6 +9,7 @@ type Status = "idle" | "downloading" | "done" | "error";
 
 export function DownloadButton() {
   const t = useTranslations("download");
+  const locale = useLocale();
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +17,7 @@ export function DownloadButton() {
     setStatus("downloading");
     setError(null);
     try {
-      const res = await fetch("/api/resume/download");
+      const res = await fetch(`/api/resume/download?lang=${locale}`);
       if (!res.ok) {
         throw new Error(t("failed", { status: res.status }));
       }
