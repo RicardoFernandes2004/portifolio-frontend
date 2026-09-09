@@ -309,3 +309,17 @@
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+/* Respeita quem pediu menos movimento no sistema. O fundo tem varias animacoes
+   infinitas (scan, glitch, flicker, pulse-neon) que sao decorativas: neutraliza
+   todas em vez de manter a tela viva contra a preferencia do usuario. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

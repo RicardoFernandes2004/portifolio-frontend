@@ -12,7 +12,6 @@ import { CyberCard } from "@/components/cyber/CyberCard";
 import { SectionHeader } from "@/components/cyber/SectionHeader";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { PostCard } from "@/components/blog/PostCard";
-import { MotionFade } from "@/components/cyber/MotionFade";
 import {
   ArrowRight,
   Download,
@@ -140,7 +139,7 @@ export default async function HomePage({ params: { locale } }: Props) {
           )}
         </div>
 
-        <MotionFade delay={0.2} className="md:col-span-4 flex items-start justify-center md:justify-end">
+        <div className="md:col-span-4 flex items-start justify-center md:justify-end animate-slide-up [animation-delay:0.2s] [animation-fill-mode:backwards]">
           <CyberCard variant="purple" className="w-full max-w-xs">
             <div className="p-5 space-y-4 font-mono text-xs">
               <div className="flex items-center justify-between text-fg-muted uppercase tracking-widest">
@@ -164,7 +163,7 @@ export default async function HomePage({ params: { locale } }: Props) {
               </div>
             </div>
           </CyberCard>
-        </MotionFade>
+        </div>
       </section>
 
       <div className="neon-divider" />

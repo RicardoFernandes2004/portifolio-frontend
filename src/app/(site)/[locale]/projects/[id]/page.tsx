@@ -25,6 +25,12 @@ import {
 
 export const revalidate = PUBLIC_REVALIDATE;
 
+/** Mesmo motivo do blog: sem isto a rota renderiza sob demanda. */
+export async function generateStaticParams() {
+  const projects = await apiGetSafe<Project[]>("/projects");
+  return (projects ?? []).map((project) => ({ id: String(project.id) }));
+}
+
 interface Props {
   params: { locale: Locale; id: string };
 }
