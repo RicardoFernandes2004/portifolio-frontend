@@ -18,6 +18,17 @@ import { ArrowLeft } from "lucide-react";
 
 export const revalidate = PUBLIC_REVALIDATE;
 
+/**
+ * Pre-renderiza os posts no build. Sem isto a rota vira dinamica e cada
+ * primeira visita dentro da janela de revalidate espera o backend acordar.
+ * Backend fora do ar no build => lista vazia => cai no render sob demanda,
+ * que e exatamente o comportamento anterior.
+ */
+export async function generateStaticParams() {
+  const posts = await apiGetSafe<Post[]>("/posts");
+  return (posts ?? []).map((post) => ({ slug: post.slug }));
+}
+
 interface Props {
   params: { locale: Locale; slug: string };
 }
