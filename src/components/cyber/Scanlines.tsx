@@ -2,7 +2,7 @@ export function Scanlines() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-0 -z-[5] opacity-[0.06] mix-blend-screen"
+        className="pointer-events-none fixed inset-0 -z-[5] opacity-[0.06]"
         style={{
           backgroundImage:
             "repeating-linear-gradient(0deg, rgba(255,255,255,0.5) 0px, rgba(255,255,255,0.5) 1px, transparent 1px, transparent 3px)",
