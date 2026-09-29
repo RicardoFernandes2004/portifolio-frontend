@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Save, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/components/admin/Toast";
+import { ImageUploadButton } from "@/components/admin/ImageUploadButton";
 
 const schema = z.object({
   name: z.string().min(1, "obrigatório"),
@@ -29,6 +30,7 @@ export function SkillForm({ initial }: { initial?: Skill }) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -115,11 +117,16 @@ export function SkillForm({ initial }: { initial?: Skill }) {
           placeholder="opcional, descrição curta"
         />
       </FieldShell>
-      <FieldShell label="icon (URL)" error={errors.icon?.message}>
-        <TextInput
-          {...register("icon")}
-          placeholder="https://cdn.../typescript.svg"
-        />
+      <FieldShell label="icon" hint="envie ou cole a URL" error={errors.icon?.message}>
+        <div className="flex gap-2">
+          <TextInput
+            {...register("icon")}
+            placeholder="https://cdn.../typescript.svg"
+          />
+          <ImageUploadButton
+            onUploaded={([url]) => setValue("icon", url, { shouldDirty: true })}
+          />
+        </div>
       </FieldShell>
     </FormShell>
   );
