@@ -25,7 +25,7 @@ export function ProjectCard({
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={cover}
-                alt={title}
+                alt={`${title} — screenshot`}
                 className="h-full w-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
               />
             ) : (

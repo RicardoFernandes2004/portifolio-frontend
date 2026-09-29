@@ -1,3 +1,4 @@
+import { JsonLd } from "./JsonLd";
 import type { Post } from "@/lib/api/types";
 import { HREFLANG, type Locale } from "@/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
@@ -23,9 +24,6 @@ export function PostJsonLd({ post, locale }: { post: Post; locale: Locale }) {
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
+    <JsonLd data={jsonLd} />
   );
 }

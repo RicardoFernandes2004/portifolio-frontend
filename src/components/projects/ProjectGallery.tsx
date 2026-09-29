@@ -21,7 +21,7 @@ export function ProjectGallery({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={main}
-            alt={`${title} ${active + 1}`}
+            alt={`${title} — screenshot ${active + 1}`}
             className="h-full w-full object-cover"
           />
           <div className="absolute top-3 left-3 font-mono text-[10px] uppercase tracking-widest text-neon-cyan bg-bg-deep/70 px-2 py-1 cyber-clip-sm border border-neon-cyan/40">
@@ -35,6 +35,7 @@ export function ProjectGallery({
             <button
               key={src + i}
               onClick={() => setActive(i)}
+              aria-label={`${title} — screenshot ${i + 1}`}
               className={cn(
                 "relative aspect-video overflow-hidden border transition-all cyber-clip-sm",
                 i === active
