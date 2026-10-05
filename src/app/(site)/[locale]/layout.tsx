@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import "../../globals.css";
-import { GridBg } from "@/components/cyber/GridBg";
+import { TechBg } from "@/components/cyber/TechBg";
 import { Scanlines } from "@/components/cyber/Scanlines";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { Header } from "@/components/site/Header";
@@ -60,7 +60,7 @@ export default async function SiteLayout({
   return (
     <html lang={HREFLANG[locale]} className={fontVariables}>
       <body className="min-h-screen antialiased">
-        <GridBg />
+        <TechBg className="fixed inset-0 -z-10" />
         <Scanlines />
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>

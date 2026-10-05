@@ -54,13 +54,23 @@ const config: Config = {
         glitch: "glitch 2.5s infinite",
         "glitch-skew": "glitch-skew 4s infinite",
         flicker: "flicker 3s linear infinite",
-        scan: "scan 8s linear infinite",
+        scan: "scan 24s linear infinite",
         "pulse-neon": "pulse-neon 2s ease-in-out infinite",
         "slide-up": "slide-up 0.5s ease-out",
         "fade-in": "fade-in 0.4s ease-out",
         "border-pulse": "border-pulse 3s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
+        "grid-drift": "grid-drift 20s linear infinite",
       },
       keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "grid-drift": {
+          "0%": { backgroundPosition: "0 0" },
+          "100%": { backgroundPosition: "60px 60px" },
+        },
         glitch: {
           "0%, 100%": { transform: "translate(0)" },
           "20%": { transform: "translate(-2px, 2px)" },
@@ -79,9 +89,10 @@ const config: Config = {
           },
           "20%, 21.999%, 63%, 63.999%, 65%, 69.999%": { opacity: "0.6" },
         },
+        // varre a tela em ~7s e fica ~17s fora dela antes de passar de novo
         scan: {
           "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100vh)" },
+          "30%, 100%": { transform: "translateY(100vh)" },
         },
         "pulse-neon": {
           "0%, 100%": { opacity: "1", filter: "brightness(1)" },
