@@ -43,7 +43,7 @@ export async function Footer() {
               href={github}
               target="_blank"
               rel="noreferrer"
-              aria-label="github"
+              aria-label="GitHub"
               className="hover:text-neon-cyan"
             >
               <Github className="h-4 w-4" />
@@ -54,7 +54,7 @@ export async function Footer() {
               href={linkedin}
               target="_blank"
               rel="noreferrer"
-              aria-label="linkedin"
+              aria-label="LinkedIn"
               className="hover:text-neon-cyan"
             >
               <Linkedin className="h-4 w-4" />
@@ -63,7 +63,7 @@ export async function Footer() {
           {email && (
             <a
               href={`mailto:${email}`}
-              aria-label="email"
+              aria-label="E-mail"
               className="hover:text-neon-cyan"
             >
               <Mail className="h-4 w-4" />

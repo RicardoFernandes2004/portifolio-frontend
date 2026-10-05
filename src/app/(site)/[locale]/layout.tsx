@@ -29,7 +29,7 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: title, template: `%s // RC.dev` },
+    title: { default: title, template: `%s | Ricardo Fernandes` },
     description,
     alternates: alternates("/", locale),
     openGraph: {
@@ -42,6 +42,7 @@ export async function generateMetadata({
     },
     twitter: { card: "summary_large_image", title, description },
     icons: { icon: "/favicon.svg" },
+    verification: { google: "_0-JTBSBiOg7I17xrxNuMU4aAbXpNQO0brkdcJOGNiM" },
   };
 }
 

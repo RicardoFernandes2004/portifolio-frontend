@@ -1,3 +1,4 @@
+import { JsonLd } from "./JsonLd";
 import { apiGetSafe } from "@/lib/api/server";
 import type { ResumeHeader, Skill } from "@/lib/api/types";
 import { HREFLANG, type Locale } from "@/i18n/routing";
@@ -38,9 +39,6 @@ export async function PersonJsonLd({ locale }: { locale: Locale }) {
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
+    <JsonLd data={jsonLd} />
   );
 }

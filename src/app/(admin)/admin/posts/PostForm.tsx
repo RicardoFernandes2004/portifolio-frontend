@@ -19,6 +19,7 @@ import {
   SelectInput,
 } from "@/components/admin/Field";
 import { StringListField } from "@/components/admin/StringListField";
+import { ImageUploadButton } from "@/components/admin/ImageUploadButton";
 import { MarkdownEditor } from "@/components/admin/MarkdownEditor";
 import { NeonButton } from "@/components/cyber/NeonButton";
 import { useState } from "react";
@@ -298,11 +299,17 @@ export function PostForm({ initial }: { initial?: Post }) {
         control={control}
         name="images"
         render={({ field }) => (
-          <FieldShell label="images (URLs)" hint="primeira imagem vira capa">
+          <FieldShell label="images" hint="envie ou cole URLs; primeira imagem vira capa">
             <StringListField
               value={field.value}
               onChange={field.onChange}
               placeholder="https://..."
+              extra={
+                <ImageUploadButton
+                  multiple
+                  onUploaded={(urls) => field.onChange([...field.value, ...urls])}
+                />
+              }
             />
           </FieldShell>
         )}

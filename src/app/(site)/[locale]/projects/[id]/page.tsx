@@ -5,7 +5,10 @@ import { Link } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import { apiGetSafe, PUBLIC_REVALIDATE } from "@/lib/api/server";
 import type { Project } from "@/lib/api/types";
-import { alternates } from "@/lib/seo";
+import { absoluteUrl, alternates } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
+import { HREFLANG } from "@/i18n/routing";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { tr, truncate } from "@/lib/utils";
 import { GlitchText } from "@/components/cyber/GlitchText";
 import { CyberCard } from "@/components/cyber/CyberCard";
@@ -119,6 +122,23 @@ export default async function ProjectDetailPage({
 
   return (
     <main className="mx-auto max-w-6xl px-4 md:px-8 py-16 md:py-20 space-y-12">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": project.githubLink ? "SoftwareSourceCode" : "CreativeWork",
+          name: title,
+          description,
+          inLanguage: HREFLANG[locale],
+          url: absoluteUrl(`/projects/${project.id}`, locale),
+          author: { "@id": `${SITE_URL}/#person` },
+          dateCreated: project.createdAt,
+          dateModified: project.updatedAt,
+          ...(project.githubLink && { codeRepository: project.githubLink }),
+          ...(project.link && { sameAs: project.link }),
+          ...(project.technologies?.length > 0 && { keywords: project.technologies }),
+          ...(project.images?.length > 0 && { image: project.images }),
+        }}
+      />
       <div>
         <Link href="/projects">
           <NeonButton variant="ghost" size="sm" iconLeft={<ArrowLeft className="h-4 w-4" />}>

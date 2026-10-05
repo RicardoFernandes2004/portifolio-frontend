@@ -10,8 +10,8 @@
     "switchTo": "View in Portuguese"
   },
   "site": {
-    "title": "RC.dev — Portfolio",
-    "description": "Software engineer portfolio: projects, work history and a technical blog."
+    "title": "Ricardo Fernandes | Full-Stack Developer (Node.js & Java)",
+    "description": "Ricardo Fernandes, full-stack developer: Node.js, NestJS, TypeScript, Java and Spring with Clean Architecture. Projects, work history and a technical blog."
   },
   "home": {
     "heroFallbackTitle": "SOFTWARE ENGINEER",

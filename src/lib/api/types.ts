@@ -236,3 +236,11 @@ export interface CreatePostDto {
   publishedAt?: string | null;
 }
 export type UpdatePostDto = Partial<CreatePostDto>;
+
+/** Autorização de upload direto ao storage (formato agnóstico de provedor). */
+export interface UploadTicket {
+  uploadUrl: string;
+  fields: Record<string, string>;
+  fileField: string;
+  publicUrl: string;
+}

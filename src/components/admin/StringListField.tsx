@@ -2,18 +2,21 @@
 
 import { Plus, X } from "lucide-react";
 import { TextInput } from "./Field";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 interface StringListFieldProps {
   value: string[];
   onChange: (next: string[]) => void;
   placeholder?: string;
+  /** Ações extras ao lado do botão de adicionar (ex: upload). */
+  extra?: ReactNode;
 }
 
 export function StringListField({
   value,
   onChange,
   placeholder,
+  extra,
 }: StringListFieldProps) {
   const [draft, setDraft] = useState("");
 
@@ -49,6 +52,7 @@ export function StringListField({
         >
           <Plus className="h-4 w-4" />
         </button>
+        {extra}
       </div>
       {value.length > 0 && (
         <ul className="flex flex-wrap gap-2">

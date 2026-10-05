@@ -8,6 +8,7 @@ import { extractErrorMessage, projectsApi, type Project } from "@/lib/api";
 import { FormShell } from "@/components/admin/FormShell";
 import { FieldShell, TextInput, TextAreaInput } from "@/components/admin/Field";
 import { StringListField } from "@/components/admin/StringListField";
+import { ImageUploadButton } from "@/components/admin/ImageUploadButton";
 import { NeonButton } from "@/components/cyber/NeonButton";
 import { useState } from "react";
 import { Save, ArrowLeft } from "lucide-react";
@@ -189,11 +190,17 @@ export function ProjectForm({ initial }: { initial?: Project }) {
         control={control}
         name="images"
         render={({ field }) => (
-          <FieldShell label="images (URLs)" hint="primeira imagem vira capa">
+          <FieldShell label="images" hint="envie ou cole URLs; primeira imagem vira capa">
             <StringListField
               value={field.value}
               onChange={field.onChange}
               placeholder="https://..."
+              extra={
+                <ImageUploadButton
+                  multiple
+                  onUploaded={(urls) => field.onChange([...field.value, ...urls])}
+                />
+              }
             />
           </FieldShell>
         )}
