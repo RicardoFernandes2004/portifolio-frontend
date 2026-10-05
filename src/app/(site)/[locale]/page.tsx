@@ -70,15 +70,15 @@ export default async function HomePage({ params: { locale } }: Props) {
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg-deep to-transparent" />
         </div>
 
-        <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-12 md:grid-cols-12 md:px-8">
-        <div className="md:col-span-8 space-y-7">
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-4 py-12 md:grid-cols-12 md:px-8">
+        <div className="min-w-0 md:col-span-8 space-y-7">
           <p className="font-mono text-xs md:text-sm uppercase tracking-[0.4em] text-neon-cyan terminal-prompt animate-slide-up [animation-fill-mode:backwards]">
             init session :: status[OK]
           </p>
           <div className="space-y-2">
             {/* --chars = tamanho da linha em ch, usado pela animacao de digitacao */}
             <p
-              className="typing font-mono text-fg-dim"
+              className="typing font-mono text-xs sm:text-sm md:text-base text-fg-dim"
               style={{ "--chars": `${(header?.name ?? "Ricardo").length + 16}ch` } as CSSProperties}
             >
               <span className="text-neon-magenta">const</span>{" "}
@@ -125,9 +125,9 @@ export default async function HomePage({ params: { locale } }: Props) {
               {header.email && (
                 <a
                   href={`mailto:${header.email}`}
-                  className="inline-flex items-center gap-1.5 hover:text-neon-cyan"
+                  className="inline-flex min-w-0 items-center gap-1.5 break-all hover:text-neon-cyan"
                 >
-                  <Mail className="h-3.5 w-3.5 text-neon-cyan" />
+                  <Mail className="h-3.5 w-3.5 shrink-0 text-neon-cyan" />
                   {header.email}
                 </a>
               )}
@@ -157,7 +157,7 @@ export default async function HomePage({ params: { locale } }: Props) {
           )}
         </div>
 
-        <div className="md:col-span-4 flex items-start justify-center md:justify-end animate-slide-up [animation-delay:0.9s] [animation-fill-mode:backwards]">
+        <div className="min-w-0 md:col-span-4 flex items-start justify-center md:justify-end animate-slide-up [animation-delay:0.9s] [animation-fill-mode:backwards]">
           <CyberCard variant="purple" className="w-full max-w-xs animate-float hover:shadow-neon-purple transition-shadow">
             <div className="p-5 space-y-4 font-mono text-xs">
               <div className="flex items-center justify-between text-fg-muted uppercase tracking-widest">
