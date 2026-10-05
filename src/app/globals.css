@@ -24,21 +24,19 @@
     border-color: rgb(var(--border));
   }
 
+  /* Fundo so no html: se o body tiver fundo opaco ele cobre o TechBg fixo
+     (z-index negativo fica abaixo do fundo do body). */
+  html {
+    background: rgb(var(--bg-deep));
+  }
+
   html,
   body {
-    background: rgb(var(--bg-deep));
     color: rgb(var(--fg));
     font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  body {
-    background-image:
-      radial-gradient(ellipse at top, rgba(123, 44, 255, 0.15), transparent 60%),
-      radial-gradient(ellipse at bottom right, rgba(255, 43, 214, 0.1), transparent 60%),
-      radial-gradient(ellipse at bottom left, rgba(0, 240, 255, 0.1), transparent 60%);
-    background-attachment: fixed;
+    /* clip (nao hidden): hidden vira container de scroll e quebra todo position: sticky */
+    overflow-x: clip;
   }
 
   ::selection {
@@ -302,6 +300,60 @@
   overflow: hidden;
 }
 
+/* Digitacao do "const user = ..." no hero. --chars vem inline (tamanho da linha). */
+.typing {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid rgb(var(--neon-cyan));
+  animation:
+    typing 1.4s steps(30, end) 0.2s both,
+    caret 0.8s step-end infinite;
+}
+@keyframes typing {
+  from { width: 0; }
+  to { width: calc(var(--chars) + 1ch); }
+}
+@keyframes caret {
+  50% { border-color: transparent; }
+}
+
+/* Animacoes ligadas ao scroll (Chrome/Edge/Safari 26+). Sem suporte: nada
+   acontece e o conteudo fica visivel normalmente. */
+@supports (animation-timeline: view()) {
+  /* video do hero escurece enquanto o conteudo sobe por cima dele */
+  .hero-fade {
+    animation: hero-fade linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+  @keyframes hero-fade {
+    to { opacity: 0.15; filter: blur(4px); }
+  }
+
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  }
+}
+
+/* Hero da home: some abaixo de --cover (topo do conteudo que sobe, medido pelo
+   CoverMask), com 8rem de degrade. Sem JS, --cover cai no fallback e nada some. */
+.hero-cover {
+  --mask: linear-gradient(
+    to bottom,
+    #000 calc(var(--cover, 200vh) - 8rem),
+    transparent var(--cover, 200vh)
+  );
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+}
+
 /* hide scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -321,5 +373,10 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  /* animacoes ligadas ao scroll ignoram duration; desliga explicitamente */
+  .reveal,
+  .hero-fade {
+    animation: none !important;
   }
 }
